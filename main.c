@@ -1857,12 +1857,32 @@ void map_init(int mapnum){
 
 sprite_t* a_button;
 
+void check_memory_expanded(){
+    if(!is_memory_expanded()){
+        rspq_wait();
+        display_close();
+        display_init(RESOLUTION_640x480, DEPTH_16_BPP, 2, GAMMA_NONE, FILTERS_DEDITHER);
+        sprite_t* sprite = sprite_load("rom:/UI/expansionpak.ci8.sprite");
+        rdpq_textparms_t textparms; textparms.align = ALIGN_CENTER;
+        textparms.style_id = 0;
+        textparms.width = display_get_width();
+        while(true){
+            rdpq_attach(display_get(), NULL);
+            rdpq_set_mode_copy(false);
+            rdpq_sprite_blit(sprite, 320 - 160, 120, NULL);
+            rdpq_text_printf(NULL, 2, 200, 70, "Expansion Pak is required\nto play this game.");
+            rdpq_detach_show();
+        }
+    }
+}
+
 int main()
 {
   init();
   effects_rumble_stop();
   libdragon_logo();
   setup();
+  check_memory_expanded();
   bgm_hardplay("menu_music", true, 0.1f);
   
   show_comic(logo_intro, 1);
