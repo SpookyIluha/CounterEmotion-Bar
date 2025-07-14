@@ -46,7 +46,7 @@ The game requires an Expansion Pak!
 
 --------------------Additional Information-----------------------------
 
-Gameplay walkthrough: https://youtu.be/327pSZaQ9mA
+Gameplay walkthrough: https://www.youtube.com/watch?v=8nadt5Nj7ZU
 
 Cheat codes: L+Start - complete level, Z+Start - restart level
 
