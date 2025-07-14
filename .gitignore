@@ -1,0 +1,6 @@
+*.blend
+*.blend1
+*.psd
+/filesystem
+*.z64
+/build
