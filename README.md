@@ -3,6 +3,9 @@ A Targem Games 3-Day GameJam 2025 Entry indie game/homebrew made for the Nintend
 
 This game and all of its content including code, builds, art, models and assets are NOT for commercial use. The sources for assets (CC0 and Public Domain) are listed in the game's credits.
 
+Building the game requires the libdragon SDK + texparms PR + RDP optimizations PR
+Also you need Tiny3D with no_light branch or later.
+
 Music credits:
 - Spring in Puck City
 - Lost Without (Her)
@@ -13,53 +16,45 @@ Music credits:
 
 Made by SpookyIluha and Feijoatl
 
-This is the exact game (RU) that got submitted to the gamejam, below is the entry's readme:
+This is an updated entry that has been translated and has a few fixes, the original gamejam entry can be found in the original_ru branch and Gamejam Entry (RU) release.
 
-<img width="1000" height="696" alt="boxart" src="https://github.com/user-attachments/assets/403d0262-0c76-4495-a521-9e3c16b955fb" />
+<img width="1000" height="696" alt="boxart_en" src="https://github.com/user-attachments/assets/7bd00bf2-1a9b-4f36-8c03-e676be2d24b3" />
 
-Двое амбициозных инопланетян на космическом корабле бороздили просторы вселенной в поисках планеты, которую они бы могли захватить для своих творческих экспериментов. Однажды они натыкаются на ярко-голубую планету, которая называется Земля.
+Two ambitious aliens aboard a spaceship were exploring the vastness of the universe in search of a planet they could conquer for their creative experiments. One day, they come across a bright blue planet called Earth.
 
-Они наблюдают за жителями этой планеты и узнают, что те крайне эмоциональные существа. Эта странная вещь — эмоция — кажется, способна так сильно на них воздействовать, что те буквально теряют над собой контроль. К тому же любопытные захватчики узнают, что люди очень любят проводить время в неком месте под названием «бар». Там они этот переизбыток эмоций глушат, и, похоже, только рады этому. Нашим захватчикам приходит невероятная идея постичь искусство управления эмоциями. Это ведь такой необычный способ захватить чужую планету!
+They observe the inhabitants of this planet and learn that they are extremely emotional beings. This strange thing — emotion — seems to be able to influence them so strongly that they literally lose control. Moreover, curious invaders discover that humans love to spend time in a place called a "bar." There, they suppress this excess of emotions, and it seems they are only happy about it. Our invaders have an incredible idea: to master the art of managing emotions. After all, it's such an unusual way to conquer another planet!
 
----------------------------------------------------------------
+"CounterEmotion Bar" for Nintendo 64
 
-"Бар Антимоция" для приставки Nintendo 64
+Supports co-op for 2 players and rumble pak on the console. Includes 4 levels, a detailed story, and an endless mode
 
-Поддерживает ко-оп на 2 игроков и виброконтроллер на приставке
-В игре 4 уровня, подробная история и бесконечный режим
+--------------------Gameplay-----------------------------
 
---------------------Игровой процесс-----------------------------
+You are an alien invader on Earth in your own bar, and your task is to drain the emotions of visitors using bottles and items with anti-emotions. Customers will come in and tell you about their problems. You need to find suitable ingredients in the right quantities and mix them into a cocktail.
 
-Вы - захватчик-инопланетянин на Земле в собственном баре и ваша задача - опустошать эмоции посетителей посредством бутылок и предметов с анти-эмоциями. К вам будут приходить клиенты и рассказывать о своих проблемах. 
-Из них вы должны найти подходящие ингредиенты в подходящем количестве и смешать их в коктейль. 
+Each correctly made cocktail will earn you points for collecting human data to pass the level.
 
-Каждый правильно сделанный коктейль добавит вам очки сбора человеческих данных для прохождения уровня.
+Incorrect cocktails will upset the visitors. If you give them nothing or ignore them, you will lose lives. The level starts with 3 lives.
 
-Неправильно сделанные коктейли огорчат посетителей. А если вы им ничего не дадите или проигнорируйте их, то у вас отнимутся жизни. На уровень даётся 3 жизни.
+------------------Game start on the console-----------------------
 
+Copy the .z64 ROM file from the ./gamedata folder onto any flash cartridge and run it on your console.
 
-------------------Старт игры на приставке-----------------------
+Controls on the console: [Stick] - move and navigate menus [A/B] - interact and cancel respectively [Start] - open menu
 
+The game requires an Expansion Pak!
 
-Скопируйте .z64 ром-файл из папки ./gamedata на любой флеш-картридж и запустите его на приставке.
+--------------------Additional Information-----------------------------
 
-Управление на приставке:
-[Стик] - перемещение и выбор в меню
-[A/B] взаимодействие и отмена соответственно.
-[Start] - открывает меню
+Gameplay walkthrough: https://www.youtube.com/watch?v=8nadt5Nj7ZU
 
-Для игры требуется Expansion Pak!
+Cheat codes: L+Start - complete level, Z+Start - restart level
 
---------------------Доп. информация-----------------------------
+The game was developed using free open-source SDK Libdragon and the Tiny3D 3D graphics library. There is not a single line of proprietary code in the game binaries.
 
-Прохождение игры: https://youtu.be/327pSZaQ9mA
+<img width="640" height="480" alt="counteremotion_bar 2025-07-14 21-05-37" src="https://github.com/user-attachments/assets/ce6eff2b-cef5-4919-89e2-dcd7719e7e23" />
+<img width="640" height="480" alt="counteremotion_bar 2025-07-14 21-05-42" src="https://github.com/user-attachments/assets/1777aa6d-4c57-473d-9e78-37ef96537ee9" />
+<img width="640" height="480" alt="counteremotion_bar 2025-07-14 21-22-43" src="https://github.com/user-attachments/assets/af6de1f4-fdc3-44d5-8411-bd120e0ba5c0" />
+<img width="640" height="480" alt="counteremotion_bar 2025-07-14 21-22-59" src="https://github.com/user-attachments/assets/b9427476-10d4-4fea-8462-33d84faa5e37" />
+<img width="640" height="480" alt="counteremotion_bar 2025-07-14 21-23-24" src="https://github.com/user-attachments/assets/298f96f3-d92b-4166-a19a-2fdd59bef375" />
 
-Чит-коды: L+Start - прохождение уровня, Z+Start - рестарт уровня
-
-Игра сделана с помощью бесплатных открытых SDK Libdragon и библиотеки 3D графики Tiny3D
-В бинарниках игры нет ни одной строчки проприетарного кода
-
-<img width="640" height="480" alt="counteremotion_bar_ru 2025-07-14 20-10-02" src="https://github.com/user-attachments/assets/f1a4cfe5-9e0c-4119-88e8-2d4593dce938" />
-<img width="640" height="480" alt="t3d_01_model 2025-07-12 21-43-39" src="https://github.com/user-attachments/assets/53654bd2-7c56-4e70-b2aa-1e1a2f81aac4" />
-<img width="640" height="480" alt="t3d_01_model 2025-07-12 23-50-31" src="https://github.com/user-attachments/assets/5a63040b-db32-4a75-8f6b-806ea19768fa" />
-<img width="640" height="480" alt="t3d_01_model 2025-07-13 00-31-28" src="https://github.com/user-attachments/assets/e1ad6c7a-f3ab-463f-8881-9080f35e30ec" />
