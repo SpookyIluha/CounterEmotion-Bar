@@ -1,3 +1,13 @@
+/* ------------------------------------------------------------
+
+This is 2000-lines of pure C shitcode that was made in under 3 days in rapid development.
+Do not try to understand this code, it won't really do any good to you.
+
+Made by SpookyIluha with some Tiny3D and Libdragon examples.
+
+------------------------------------------------------- */
+
+
 #include <libdragon.h>
 #include <t3d/t3d.h>
 #include <t3d/t3dmath.h>
@@ -318,69 +328,68 @@ comic_entry_t logo_intro[] = {
     { "rom:/UI/logo.ci8.sprite", "", 5 }
 };
 
-comic_entry_t comics_intro[] = {
-    { "rom:/UI/intro1.ci8.sprite", "Двое амбициозных инопланетян на космическом корабле бороздили просторы вселенной в поисках планеты, которую они бы могли захватить для своих творческих экспериментов.", 0 },
-    { "rom:/UI/intro2.ci8.sprite", "Они наблюдают за жителями этой планеты и узнают, что те крайне эмоциональные существа. Эта странная вещь - эмоция - кажется, способна так сильно на них воздействовать, что те буквально теряют над собой контроль. ", 0 },
-    { "rom:/UI/intro2.ci8.sprite", "К тому же любопытные захватчики узнают, что люди очень любят проводить время в неком месте под названием «бар». Там они этот переизбыток эмоций глушат, и, похоже, только рады этому. ", 0 },
-    { "rom:/UI/intro2.ci8.sprite", "Нашим захватчикам приходит невероятная идея постичь искусство управления эмоциями. Это ведь такой необычный способ захватить чужую планету!", 0 },
-    { "rom:/UI/intro3.ci8.sprite", "Используя свои передовые технологии они без проблем определяют две базовые эмоции, которые им удается синтезировать в жидком виде. Дело за малым - начать полевые эксперименты! А там, глядишь, и новые удастся синтезировать. Для более тонкой промывки мозгов.", 0 },
-    { "rom:/UI/intro4.ci8.sprite", "Они приземляются на Землю, и корабль входит в режим маскировки. Неопознанный летающий объект быстро становится вполне себе опознаваемым привлекательным баром, а наши инопланетные захватчики готовятся к открытию.", 0 },
-    { "rom:/UI/intro4.ci8.sprite", "Им не терпится начать постигать искусство бариста эмоций и изучить первого испытуемого посредством непринужденной беседы. Цель изучения — определение и нейтрализация человеческих эмоций!", 0 },
+comic_entry_t comics_intro[] = { 
+  { "rom:/UI/intro1.ci8.sprite", "Two ambitious aliens aboard a spaceship roamed the universe in search of a planet they could conquer for their creative experiments.", 0 }, 
+  { "rom:/UI/intro2.ci8.sprite", "They observe the inhabitants of this planet Earth and learn that they are extremely emotional beings. This strange thing — emotion — seems capable of influencing them so strongly that they literally lose control over themselves.", 0 }, 
+  { "rom:/UI/intro2.ci8.sprite", "Moreover, curious conquerors find out that humans love to spend time in a place called 'bar'. There, they suppress this excess of emotions, and it seems they are quite happy about it.", 0 }, 
+  { "rom:/UI/intro2.ci8.sprite", "Our invaders come up with an incredible idea to master the art of controlling emotions. It’s such an unusual way to conquer an alien planet!", 0 }, 
+  { "rom:/UI/intro3.ci8.sprite", "Using their advanced technologies, they easily identify two basic emotions that they can synthesize in liquid form. The task is to start field experiments! And perhaps, synthesize new ones for more subtle mind control.", 0 }, 
+  { "rom:/UI/intro4.ci8.sprite", "They land on Earth, and their ship enters stealth mode. An unidentified flying object quickly becomes a quite recognizable attractive bar, and our alien conquerors prepare for the operation.", 0 }, 
+  { "rom:/UI/intro4.ci8.sprite", "They can't wait to begin mastering the art of emotion baristas and study the first test subject through casual conversation. The goal is to identify and neutralize human emotions!", 0 }, 
 };
 
-comic_entry_t level1_intro[] = {
-    { "rom:/UI/tutorial1.ci8.sprite", "Туториал: К вам будут приходить посетители желающие избавиться от эмоций. Из беседы можно узнать о их проблемах и как сильно они испытывают те или иные эмоции. Жмите А чтобы говорить с ними.", 0 },
-    { "rom:/UI/tutorial2.ci8.sprite", "Туториал: Вам нужно будет сделать смесь нейтрализующую эмоции клиента. Чем больше конкретной эмоции чувствует клиент, тем больше антиэмоции потребуется!\nДля начала нужно будет взять и поставить бокал на стойку. Жмите А чтобы взять бокал и у стойки нажмите А еще раз чтобы поставить его.", 0 },
-    { "rom:/UI/tutorial3.ci8.sprite", "Туториал: Затем возьмите подходящие ингредиенты (эмоции) на полке. Жмите А чтобы взять предмет и B чтобы убрать его. Следите за его количеством!", 0 },
-    { "rom:/UI/tutorial4.ci8.sprite", "Туториал: Смешивайте в бокал антиэмоции и нейтрализуйте всё что посетитель чувствует. Пусть они станут безэмоциональными и послушными вам!", 0 },
-    { "rom:/UI/tutorial5.ci8.sprite", "Готовы? Тогда начинаем через 3... 2... 1...", 0 }
+comic_entry_t level1_intro[] = { 
+  { "rom:/UI/tutorial1.ci8.sprite", "Tutorial: Visitors will come to you wanting to get rid of emotions. You can learn about their problems and how strongly they experience certain emotions through conversation. Press A to talk to them.", 0 }, 
+  { "rom:/UI/tutorial2.ci8.sprite", "Tutorial: You need to make a mixture that neutralizes the client's emotions. The more of a specific emotion the client feels, the more anti-emotion is required!\nFirst, take a glass and place it on the counter. Press A to take the glass, and press A again at the counter to place it.", 0 }, 
+  { "rom:/UI/tutorial3.ci8.sprite", "Tutorial: Then, take suitable ingredients (emotions) from the shelf. Press A to pick up an item and B to put it back. Watch its quantity!", 0 }, 
+  { "rom:/UI/tutorial4.ci8.sprite", "Tutorial: Mix anti-emotions in the glass and neutralize everything the visitor feels. Make them emotionless and obedient to you!", 0 },
+  { "rom:/UI/tutorial5.ci8.sprite", "Ready? Then starting in 3... 2... 1...", 0 } 
 };
 
-comic_entry_t level2_intro[] = {
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: Невероятно, правда? Человеки даже не удивились, когда наш бар вдруг появился из ниоткуда!", 5 },
-    { "rom:/UI/dialogue.ci8.sprite", "Сеньши: Да, это потрясающе! К тому же наша разработка жидких «анти-эмоций» сработала лучше, чем мы ожидали. ", 6 },
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: И мы умудрились стать отличными баристами! Какой же это удобный способ захвата планеты, оказывается. ", 5 },
-    { "rom:/UI/dialogue.ci8.sprite", "Сеньши: Именно. А благодаря близкому контакту мы смогли синтезировать новые растворители эмоций — для страха и злости. ", 6},
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: Ух ты! Завтра обещает быть интересным. Кажется, мы сможем провести гораздо более сложные эксперименты!", 5 },
-    { "rom:/UI/dialogue.ci8.sprite", "Готовы к уровню 2? Тогда начинаем через 3... 2... 1...", 0 }
+comic_entry_t level2_intro[] = { 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: Incredible, isn't it? Humans didn't even react when our bar suddenly appeared out of nowhere!", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: Yes, it's amazing! Plus, our liquid 'anti-emotion' development worked better than we expected.", 6 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: And we've managed to become excellent baristas! Turns out, it's such a convenient way to conquer a planet.", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: Exactly. And through close contact, we synthesized new anti-emotion solvents — for fear and anger.", 6}, 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: Wow! Tomorrow promises to be interesting. Looks like we can conduct much more complex experiments!", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Ready for level 2? Then starting in 3... 2... 1...", 0 } 
 };
 
-comic_entry_t level3_intro[] = {
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: Работать с четырьмя растворителями эмоций оказалось настоящим испытанием. ", 5 },
-    { "rom:/UI/dialogue.ci8.sprite", "Сеньши: Да, но не зря же мы сдавали экзамены на захватчиков планет! Мы готовы справляться с любыми трудностями! ", 6 },
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: Верно! Кстати, коктейли с четырьмя ингредиентами показали отличные результаты. Мы уже ближе к нашей цели. ", 5 },
-    { "rom:/UI/dialogue.ci8.sprite", "Сеньши: И бар стал очень популярным среди людей! Все идет как по маслу. Точнее шло бы, не кончайся у нас запас «анти-эмоций»... ", 6},
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: Поэтому нужно пополнить запасы экспериментальными ингредиентами. ", 5 },
-    { "rom:/UI/dialogue.ci8.sprite", "Сеньши: Ты про то, что даже обычные вещи вызывают у людей сильные эмоции? Это можно использовать.", 6},
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: Нужно использовать всё, что под рукой! Это точно поможет нам в осуществлении плана! ", 5 },
-    { "rom:/UI/tutorial6.ci8.sprite", "Туториал: В баре появились различные предметы! Каждый предмет вызывает определенные эмоции! Берите их нажимая А и добавляйте их в смеси если закончились бутылки.", 0 },
-    { "rom:/UI/dialogue.ci8.sprite", "Готовы к уровню 3? Тогда начинаем через 3... 2... 1...", 0 }
+comic_entry_t level3_intro[] = { 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: Working with four emotion solvents turned out to be a real challenge.", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: Yes, but we didn't just take planet conqueror exams for nothing! We're ready to handle any difficulties!", 6 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: Exactly! By the way, cocktails with four ingredients showed excellent results. We're getting closer to our goal.", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: And the bar has become very popular among people! Everything is going smoothly. Well, it would be if we didn't run out of 'anti-emotions'...", 6}, 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: So, we need to replenish supplies with experimental ingredients.", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: You mean that even ordinary objects evoke strong emotions in people? We can use that.", 6}, 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: We must use everything at hand! This will surely help us execute our plan!", 5 }, 
+  { "rom:/UI/tutorial6.ci8.sprite", "Tutorial: Various items have appeared in the bar! Each item evokes certain emotions! Pick them up by pressing A and add them to mixtures if bottles run out.", 0 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Ready for level 3? Then starting in 3... 2... 1...", 0 } 
 };
 
-comic_entry_t level4_intro[] = {
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: Теория подтверждена! Даже простые предметы могут влиять на эмоции людей.", 5 },
-    { "rom:/UI/dialogue.ci8.sprite", "Сеньши: Это настоящий прорыв для нашей захватнической деятельности!", 6 },
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: Совсем скоро эта планета станет готова к тому, чтобы показать ее нашей колонии.", 5 },
-    { "rom:/UI/dialogue.ci8.sprite", "Сеньши: А бар всё больше набирает популярность! Кстати, был у нас тут посетитель... Большая шишка! Обещал этой ночью устроить у нас большую вечеринку. Будет много работы.", 6},
-    { "rom:/UI/dialogue.ci8.sprite", "Паньши: Это здорово, больше подопытных! Но... есть и проблемы — растворителя эмоций осталось очень мало.", 5 },
-    { "rom:/UI/dialogue.ci8.sprite", "Сеньши: Да, нам нужно будет внимательно слушать посетителей и готовить коктейли. У нас нет права на ошибки!", 6},
-    { "rom:/UI/dialogue.ci8.sprite", "Готовы к последнему уровню? Тогда начинаем через 3... 2... 1...", 0 }
+comic_entry_t level4_intro[] = { 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: The theory is confirmed! Even simple objects can influence people's emotions.", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: This is a real breakthrough for our conquest activities!", 6 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: Very soon, this planet will be ready to show itself to our colony.", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: And the bar is becoming more popular! By the way, we had a visitor here... A big shot! Promised to throw a big party tonight. There will be a lot of work.", 6}, 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: That's great, more test subjects! But... there's a problem — we have very little anti-emotion solvent left.", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: Yes, we need to carefully listen to visitors and prepare cocktails with all the items we've got. We can't afford mistakes!", 6}, 
+  { "rom:/UI/dialogue.ci8.sprite", "Ready for the final level? Then starting in 3... 2... 1...", 0 } 
 };
 
-comic_entry_t outro_comic[] = {
-    { "rom:/UI/outro1.ci8.sprite", "Коварный план двух изобретательных пришельцев удался. Хоть это и невозможно с точки зрения науки, они в совершенстве отточили искусство определения эмоций людей с последствующим подавлением. ", 0 },
-    { "rom:/UI/outro2.ci8.sprite", "Прежние хозяева Земли стали безвольными пустышками, оставив свои амбиции в инопланетном баре. Всё готово для успешного захвата! Сигнал в колонию был отправлен и сородичи уже спешат к нашим захватчикам, чтобы присоединиться к ним.", 0 },
-    { "rom:/UI/outro2.ci8.sprite", "Спасибо за игру!", 0 },
+comic_entry_t outro_comic[] = { 
+{ "rom:/UI/outro1.ci8.sprite", "The cunning plan of two resourceful aliens succeeded. Although it is impossible from a scientific point of view, they have perfected the art of detecting human emotions with subsequent suppression.", 0 }, 
+{ "rom:/UI/outro2.ci8.sprite", "The former Earth rulers have become helpless shells, leaving their ambitions in the alien bar. Everything is ready for a successful conquest! The signal has been sent to the colony, and the comrades are already rushing to our invaders to join them.", 0 }, 
+{ "rom:/UI/outro2.ci8.sprite", "Thank you for playing!", 0 }, 
 };
 
-comic_entry_t credits_comic[] = {
-    { "rom:/UI/credits.ci8.sprite", "Бар Антимоция", 0 },
-    { "rom:/UI/intro4.ci8.sprite", "Программирование и сборка\n\nSpooky Илюха", 0 },
-    { "rom:/UI/credits.ci8.sprite", "Арт и сюжет\n\nFeijoatl", 0 },
-    { "rom:/UI/outro2.ci8.sprite", "Использованные утилиты\n\nLibdragon\nTiny3D\nBlender", 0 },
-    { "rom:/UI/credits.ci8.sprite", "Использованные ресурсы\n\nfreesound.org\nmodarchive.org\npolyhaven.com", 0 },
-    { "rom:/UI/logo.ci8.sprite", "", 0 },
-};
+comic_entry_t credits_comic[] = { 
+ { "rom:/UI/credits.ci8.sprite", "CounterEmotion Bar", 0 },
+ { "rom:/UI/intro4.ci8.sprite", "Programming and building\n\nSpooky Iluha", 0 }, 
+ { "rom:/UI/credits.ci8.sprite", "Art and story\n\nFeijoatl", 0 }, 
+ { "rom:/UI/outro2.ci8.sprite", "Tools used\n\nLibdragon\nTiny3D\nBlender", 0 }, 
+ { "rom:/UI/credits.ci8.sprite", "Resources used\n\nfreesound.org\nmodarchive.org\npolyhaven.com", 0 }, 
+ { "rom:/UI/logo.ci8.sprite", "", 0 }, };
 
 sprite_t* background;
 rspq_block_t* background_block;
@@ -528,7 +537,7 @@ bool enable_infinite_mode(){
             textparms.align = ALIGN_CENTER; textparms.valign = VALIGN_CENTER;
             textparms.wrap = WRAP_WORD;
             textparms.style_id = 0;
-            rdpq_text_printf(&textparms, 2, 50, 100, "Доступен бескоенчный режим! Играть?\n\nA - Начать\nB - В меню");
+            rdpq_text_printf(&textparms, 2, 50, 100, "Infinite mode available! Start it?\n\nA - Start\nB - Back to menu");
             audioutils_mixer_update();
             rdpq_detach_show();
         }
@@ -691,13 +700,11 @@ void libdragon_logo()
         rdpq_detach_show();
     }
 
-    //wait_ms(500); // avoid immediate switch to next screen
     rspq_wait();
     sprite_free(d1);
     sprite_free(d2);
     sprite_free(d3);
     sprite_free(d4);
-    //wav64_close(&music);
     display_close();
 }
 
@@ -716,9 +723,6 @@ void render_background(){
         background_block = rspq_block_end();
     } rspq_block_run(background_block);
 
-    //rdpq_text_printf(NULL, 3, 50, 50, "^02FPS: %.2f", display_get_fps());
-    //heap_stats_t stats; sys_get_heap_stats(&stats);
-    //rdpq_text_printf(NULL, 1, 30, 50, "^02MEM: %i total, %i used", stats.total, stats.used);
     rdpq_set_mode_standard();
     rdpq_mode_combiner(RDPQ_COMBINER1((ENV,PRIM,TEX0,TEX0), (0,0,0,TEX0)));
     rdpq_mode_dithering(DITHER_BAYER_INVBAYER);
@@ -731,7 +735,6 @@ void menu_main(){
     background = sprite_load("rom:/UI/menu.ci8.sprite");
     sprite_t* selector = sprite_load("rom:/UI/effect_pink.sprite");
 
-    //if(bgmusic_name[0] == 0) bgm_play("1_select", true, 0);
     int selection = 0;
     float offset = 400;
 
@@ -786,10 +789,10 @@ void menu_main(){
 
         rdpq_textparms_t parmstext = {0}; parmstext.valign = VALIGN_CENTER; parmstext.align = ALIGN_CENTER; parmstext.width = display_get_width() / 2; parmstext.height = 80; parmstext.style_id = 1;
         parmstext.height = 40;
-        rdpq_text_printf(&parmstext, 2, 0 + offset,160, maxmap > 0? "Продолжить" : "Играть");
-        rdpq_text_printf(&parmstext, 2, 0 + offset,200, "Кооператив");
-        rdpq_text_printf(&parmstext, 2, 0 + offset,240, "Музыка: %s", music_volume_get() > 0.5f? "Вкл" : "Выкл");
-        rdpq_text_printf(&parmstext, 2, 0 + offset,280, "Звуки: %s", sound_volume_get() > 0.5f? "Вкл" : "Выкл");
+        rdpq_text_printf(&parmstext, 2, 0 + offset,160, maxmap > 0? "Continue" : "Play");
+        rdpq_text_printf(&parmstext, 2, 0 + offset,200, "Co-op");
+        rdpq_text_printf(&parmstext, 2, 0 + offset,240, "Music: %s", music_volume_get() > 0.5f? "On" : "Off");
+        rdpq_text_printf(&parmstext, 2, 0 + offset,280, "Sounds: %s", sound_volume_get() > 0.5f? "On" : "Off");
 
         rdpq_detach_show();
     }
@@ -864,16 +867,16 @@ typedef struct{
 } item_t;
 
 item_t items[] = {
-  {.itemtype = BOTTLE_HAPPY,  .enabled = true, .amount = 1.4f, .emotions.happy = 1.0f, .color = 0xc8c864ff, .itemname = "АНТИ-РАДОСТЬ", .modelname = "rom:/bottle_1_happy.t3dm", .position_rest = {{T3D_TOUNITS(1.67153), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
-  {.itemtype = BOTTLE_SAD,    .enabled = true, .amount = 1.4f, .emotions.sad = 1.0f,   .color = 0x6464c8ff, .itemname = "АНТИ-ГРУСТИН", .modelname = "rom:/bottle_2_sad.t3dm", .position_rest = {{T3D_TOUNITS(2.79504), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
-  {.itemtype = BOTTLE_ANGRY,  .enabled = true, .amount = 1.4f, .emotions.angry = 1.0f, .color = 0xc86464ff, .itemname = "ПРОТИВОЗЛОБА", .modelname = "rom:/bottle_3_angry.t3dm", .position_rest = {{T3D_TOUNITS(3.52651 ), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
-  {.itemtype = BOTTLE_SCARED, .enabled = true, .amount = 1.4f, .emotions.scared = 1.0f,.color = 0xc864c8ff, .itemname = "СТРАХА-НЕТ", .modelname = "rom:/bottle_4_scared.t3dm", .position_rest = {{T3D_TOUNITS(4.28118), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
-  {.itemtype = ITEM_GLASS,    .enabled = true, .amount = 1.4f, .itemname = "БОКАЛ",  .modelname = "rom:/glass.t3dm", .position_rest = {{T3D_TOUNITS(6.00018), T3D_TOUNITS(1.19764), T3D_TOUNITS(0.280326)}} },
-  {.itemtype = ITEM_1_FRAME,        .enabled = true, .emotions.happy = 0.3f, .emotions.sad = 0.1f,   .itemname = "КАРТИНА", .modelname = "rom:/item1.t3dm", .position_rest = {{T3D_TOUNITS(8.52153), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
-  {.itemtype = ITEM_2_BEAR,         .enabled = true, .emotions.happy = 0.3f, .emotions.scared = 0.2f,  .itemname = "МИШКА", .modelname = "rom:/item2.t3dm", .position_rest = {{T3D_TOUNITS(9.64504), T3D_TOUNITS(1.36301), T3D_TOUNITS(1.370326)}} },
-  {.itemtype = ITEM_3_JAWS,         .enabled = true, .emotions.scared = 0.3f, .emotions.angry = 0.1f,  .itemname = "ЧЕЛЮСТИ", .modelname = "rom:/item3.t3dm", .position_rest = {{T3D_TOUNITS(9.64504 ), T3D_TOUNITS(1.36301), T3D_TOUNITS(2.190326)}} },
-  {.itemtype = ITEM_4_BRICK,        .enabled = true, .emotions.angry = 0.3f, .emotions.happy = 0.1f,  .itemname = "ОСТРАЯ ЧАСТЬ", .modelname = "rom:/item4.t3dm", .position_rest = {{T3D_TOUNITS(9.64504), T3D_TOUNITS(1.36301), T3D_TOUNITS(3.070326)}} },
-  {.itemtype = ITEM_5_MEDALLION,    .enabled = true, .emotions.sad = 0.3f, .emotions.scared = 0.1f,  .itemname = "СТАРЫЙ КУЛОН", .modelname = "rom:/item5.t3dm", .position_rest = {{T3D_TOUNITS(9.64504), T3D_TOUNITS(1.36301), T3D_TOUNITS(3.700326)}} },
+  {.itemtype = BOTTLE_HAPPY,  .enabled = true, .amount = 1.4f, .emotions.happy = 1.0f, .color = 0xc8c864ff, .itemname = "HAPPY-LESS", .modelname = "rom:/bottle_1_happy.t3dm", .position_rest = {{T3D_TOUNITS(1.67153), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
+  {.itemtype = BOTTLE_SAD,    .enabled = true, .amount = 1.4f, .emotions.sad = 1.0f,   .color = 0x6464c8ff, .itemname = "ANTI-SAD", .modelname = "rom:/bottle_2_sad.t3dm", .position_rest = {{T3D_TOUNITS(2.79504), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
+  {.itemtype = BOTTLE_ANGRY,  .enabled = true, .amount = 1.4f, .emotions.angry = 1.0f, .color = 0xc86464ff, .itemname = "UN-ANGRY", .modelname = "rom:/bottle_3_angry.t3dm", .position_rest = {{T3D_TOUNITS(3.52651 ), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
+  {.itemtype = BOTTLE_SCARED, .enabled = true, .amount = 1.4f, .emotions.scared = 1.0f,.color = 0xc864c8ff, .itemname = "NO-FEAR", .modelname = "rom:/bottle_4_scared.t3dm", .position_rest = {{T3D_TOUNITS(4.28118), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
+  {.itemtype = ITEM_GLASS,    .enabled = true, .amount = 1.4f, .itemname = "GLASS",  .modelname = "rom:/glass.t3dm", .position_rest = {{T3D_TOUNITS(6.00018), T3D_TOUNITS(1.19764), T3D_TOUNITS(0.280326)}} },
+  {.itemtype = ITEM_1_FRAME,        .enabled = true, .emotions.happy = 0.3f, .emotions.sad = 0.1f,   .itemname = "FRAME", .modelname = "rom:/item1.t3dm", .position_rest = {{T3D_TOUNITS(8.52153), T3D_TOUNITS(1.36301), T3D_TOUNITS(0.280326)}} },
+  {.itemtype = ITEM_2_BEAR,         .enabled = true, .emotions.happy = 0.3f, .emotions.scared = 0.2f,  .itemname = "BEAR", .modelname = "rom:/item2.t3dm", .position_rest = {{T3D_TOUNITS(9.64504), T3D_TOUNITS(1.36301), T3D_TOUNITS(1.370326)}} },
+  {.itemtype = ITEM_3_JAWS,         .enabled = true, .emotions.scared = 0.3f, .emotions.angry = 0.1f,  .itemname = "JAWS", .modelname = "rom:/item3.t3dm", .position_rest = {{T3D_TOUNITS(9.64504 ), T3D_TOUNITS(1.36301), T3D_TOUNITS(2.190326)}} },
+  {.itemtype = ITEM_4_BRICK,        .enabled = true, .emotions.angry = 0.3f, .emotions.happy = 0.1f,  .itemname = "SHARP PART", .modelname = "rom:/item4.t3dm", .position_rest = {{T3D_TOUNITS(9.64504), T3D_TOUNITS(1.36301), T3D_TOUNITS(3.070326)}} },
+  {.itemtype = ITEM_5_MEDALLION,    .enabled = true, .emotions.sad = 0.3f, .emotions.scared = 0.1f,  .itemname = "OLD NECKLACE", .modelname = "rom:/item5.t3dm", .position_rest = {{T3D_TOUNITS(9.64504), T3D_TOUNITS(1.36301), T3D_TOUNITS(3.700326)}} },
 };
 int itemscount = sizeof(items) / sizeof(item_t);
 
@@ -1236,12 +1239,17 @@ void player_free(player_t*  player, bool second){
 }
 
 void player_update(player_t*  player, bool second){
-
-    //debugf("PLAYER DEBUG 1\n");
     t3d_anim_update(&player->animIdle, display_get_delta_time());
 
     joypad_inputs_t input = joypad_get_inputs(second? JOYPAD_PORT_2 : JOYPAD_PORT_1);
     joypad_buttons_t pressed = joypad_get_buttons_pressed(second? JOYPAD_PORT_2 : JOYPAD_PORT_1);
+
+    if(input.stick_x > 68) input.stick_x = 68;
+    if(input.stick_x < -68) input.stick_x = -68;
+
+    if(input.stick_y > 68) input.stick_y = 68;
+    if(input.stick_y < -68) input.stick_y = -68;
+
     if(player->talking < 0){
       player->position.x += input.stick_x * 0.3 * display_get_delta_time();
       player->position.z -= input.stick_y * 0.3 * display_get_delta_time();
@@ -1251,7 +1259,6 @@ void player_update(player_t*  player, bool second){
     if(player->position.z > T3D_TOUNITS(4.5)) player->position.z = T3D_TOUNITS(4.5);
     if(player->position.x < T3D_TOUNITS(1.0)) player->position.x = T3D_TOUNITS(1.0); 
     if(player->position.x > T3D_TOUNITS(9.0)) player->position.x = T3D_TOUNITS(9.0);  
-    //debugf("PLAYER DEBUG 2\n");
     T3DVec3 inputvec = {{-input.stick_x, -input.stick_y, 0.0f}};
 
     if(player->talking >= 0){
@@ -1308,7 +1315,6 @@ void player_update(player_t*  player, bool second){
       player->animblend = fm_lerp(player->animblend, 0, 0.25f);
       t3d_skeleton_blend(&player->skeleton, &player->skeleton, &player->skelBlend, player->animblend);
     }
-    //debugf("PLAYER DEBUG 3\n");
     {
       float mindist = 99999999; int itemindex = -1;
       if(player->itemheldindex < 0){
@@ -1332,7 +1338,6 @@ void player_update(player_t*  player, bool second){
         }
       }
     }
-    //debugf("PLAYER DEBUG 4\n");
      player->closeststool = -1; float mindiststool = 99999999;
      {
         for(int i = 0; i < stoolscount; i++){
@@ -1345,19 +1350,13 @@ void player_update(player_t*  player, bool second){
         }
     }
 
-    //debugf("PLAYER DEBUG 5\n");
     if(player->itemheldindex >= 0){
 
       items[player->itemheldindex].position = player->position;
-      //int bone_index = t3d_skeleton_find_bone(&player->skeleton, "HoldBone.004.R");
-      //if(bone_index >= 0) {
+
         T3DVec3 offset = {{0,T3D_TOUNITS(1.7f), 0}};
         t3d_vec3_add(&items[player->itemheldindex].position, &items[player->itemheldindex].position, &offset);
-        //t3d_vec3_add(&items[player->itemheldindex].position, &items[player->itemheldindex].position, &player->skeleton.bones[bone_index].position);
-      //}
 
-      //debugf("PLAYER DEBUG 6\n");
-      //if(input.btn.b && t3d_vec3_distance(&items[player->itemheldindex].position_rest, &player->position) < T3D_TOUNITS(2)){
       if(input.btn.b){
         items[player->itemheldindex].position = items[player->itemheldindex].position_rest;
         items[player->itemheldindex].held = false;
@@ -1533,14 +1532,12 @@ void player_update(player_t*  player, bool second){
           }
           
     }
-    //debugf("PLAYER DEBUG 9\n");
     t3d_mat4fp_from_srt_euler(player->modelMatFP,
       (float[3]){0.1f, 0.1f, 0.1f},
       (float[3]){0.0f, player->inputyaw, 0},
       player->position.v
     );
     t3d_skeleton_update(&player->skeleton);
-    //debugf("PLAYER DEBUG 10\n");
 }
 
 void player_draw(player_t* player, bool second){
@@ -1654,7 +1651,7 @@ void draw_ui(player_t* player, bool second){
       rdpq_text_printf(NULL, 2, second? 610 - 200 : 130, 430, "%s", items[player->itemheldindex].itemname); 
     }
     if(!second){
-      rdpq_text_printf(NULL, 2, 164, 50, "СБОР ЧЕЛОВЕЧЕСКИХ ДАННЫХ"); 
+      rdpq_text_printf(NULL, 2, 164, 50, "COLLECTING HUMAN DATA"); 
       rdpq_text_printf(NULL, 3, 520, 50, "%02i:%02i", (int)time_left / 60, (int)time_left % 60);
     }
 
@@ -1662,10 +1659,10 @@ void draw_ui(player_t* player, bool second){
       const char* text = NULL;
       int style = 0;
       if(player->talking == 0){
-        text = "Как же хочется уйти от всех этих эмоций!";
+        text = "I really want to escape from all these emotions!";
       }
       else if(player->talking == 5){
-        text = "Смешай мне чего-нибудь подходящего!";
+        text = "Mix me something suitable!";
       }
       else if (player->talking < 5){
         int strongness = 0;
@@ -1704,19 +1701,19 @@ void draw_ui(player_t* player, bool second){
       }
       else{
         if(player->talking == 10){
-          text = "Вы закончили? Но тут же ничего нет! Я тогда пойду в другой бар!";
+          text = "Are you finished? But there's nothing here! Then I'll go to another bar!";
         }
         if(player->talking == 30){
-          text = "Нет, эта смесь не помогает! Меня переполняют эмоции! ААРХ! Я не знаю что мне делать!";
+          text = "No, this mixture isn't helping! I'm overwhelmed with emotions! Aaargh! I don't know what to do!";
         }
         if(player->talking == 20){
-          text = "Да, то что надо! Я вообще ничего не чувствую! Спасибо!";
+          text = "Yes, that's just what I need! I don't feel anything at all! Thank you!";
         }
         if(player->talking == 40){
-          text = "Аа! Ты пролил на меня весь бокал! Я больше сюда никогда не вернусь!";
+          text = "Ah! You spilled the entire glass on me! I will never come back here again!";
         }
         if(player->talking == 50){
-          text = "Да, то что надо! Еще! Налей мне еще того же!";
+          text = "Yes, that's just what I need! More! Pour me some of the same!";
         }
       }
         rdpq_textparms_t textparms = {0};
@@ -1725,19 +1722,19 @@ void draw_ui(player_t* player, bool second){
         textparms.align = ALIGN_LEFT; textparms.valign = VALIGN_TOP;
         textparms.wrap = WRAP_WORD;
         textparms.style_id = style;
-      rdpq_text_printf(&textparms, 3, second? 330 : 30, 90, "КЛИЕНТ:\n%s", text);
+      rdpq_text_printf(&textparms, 3, second? 330 : 30, 90, "CUSTOMER:\n%s", text);
     }
 
     if(!second)
     if(map_end){
       if(players[0].lives <= 0){
-        rdpq_text_printf(NULL, 2, 240, 240, "ЖИЗНИ КОНЧИЛИСЬ!\nИГРА ОКОНЧЕНА!");
+        rdpq_text_printf(NULL, 2, 240, 240, "LIVES ARE GONE!\nGAME OVER!");
       }
       else if (time_left < 0) {
-        rdpq_text_printf(NULL, 2, 240, 240, "ВРЕМЯ КОНЧИЛОСЬ!\nИГРА ОКОНЧЕНА!");
+        rdpq_text_printf(NULL, 2, 240, 240, "TIME'S UP!\nGAME OVER!");
       }
       else if(level_fill_current >= current_map->level_fill_max){
-        rdpq_text_printf(NULL, 2, 240, 240, "УРОВЕНЬ ПРОЙДЕН!");
+        rdpq_text_printf(NULL, 2, 240, 240, "LEVEL COMPLETED!");
       }
     }
 }
@@ -1751,7 +1748,6 @@ void init(){
   debug_init_isviewer();
 	debug_init_usblog();
 	asset_init_compression(2);
-  //wav64_init_compression(3);
 
   dfs_init(DFS_DEFAULT_LOCATION);
   joypad_init();
@@ -1767,7 +1763,7 @@ void init(){
 
 void setup(){
 
-  display_init((resolution_t){.width = 640, .height = 480, .interlaced = INTERLACE_RDP}, DEPTH_16_BPP, 3, GAMMA_NONE, FILTERS_RESAMPLE_ANTIALIAS_DEDITHER);
+  display_init((resolution_t){.width = 640, .height = 480, .interlaced = INTERLACE_RDP}, DEPTH_16_BPP, 3, GAMMA_NONE, FILTERS_DEDITHER);
   if(get_tv_type() == TV_PAL) {
       vi_set_borders((vi_borders_t){.up = 48, .down = 48});
       vi_set_yscale_factor(2.0f);
@@ -2088,10 +2084,9 @@ int main()
         if(display_interlace_rdp_field() >= 0) 
              rdpq_enable_interlaced(display_interlace_rdp_field());
         else rdpq_disable_interlaced();
-        if(framecount % 15) t3d_screen_clear_color(RGBA32(0,0,0,0));
+        if(framecount % 100) t3d_screen_clear_color(RGBA32(0,0,0,0));
         rdpq_set_scissor(30,30, 610, 450);
 
-        //t3d_screen_clear_color(RGBA32(100, 80, 80, 0xFF));
         t3d_screen_clear_depth();
 
         t3d_light_set_ambient(colorAmbient);
@@ -2163,7 +2158,7 @@ int main()
         if(coop) draw_ui(&players[1], true);
 
         if(paused){
-          rdpq_text_printf(NULL, 2, 200,200, "На паузе\n\nСТАРТ - продолжить\nA - Переиграть\nB - Выход в меню");
+          rdpq_text_printf(NULL, 2, 200,200, "Paused\n\nSTART - Continue\nA - Retry\nB - Exit to menu");
         }
 
         if(show_a_sprite){
@@ -2175,10 +2170,6 @@ int main()
         }
 
         audioutils_mixer_update();
-
-        //rdpq_text_printf(NULL, FONT_BUILTIN_DEBUG_MONO, 20, 20, "player %f %f %f - stool 0 %f %f %f", player->position.x, player->position.y, player->position.z, stools[0].position.x, stools[0].position.y, stools[0].position.z);
-        //rdpq_text_printf(NULL, FONT_BUILTIN_DEBUG_MONO, 20, 20, "player talking %i", player[0].talking);
-        //rdpq_text_printf(NULL, FONT_BUILTIN_DEBUG_MONO, 20, 20, "fps %f", player[0].talking);
         rdpq_detach_show();
       }
 
