@@ -15,6 +15,8 @@ Made by SpookyIluha and Feijoatl
 
 This is the exact game (RU) that got submitted to the gamejam, below is the entry's readme:
 
+<img width="1000" height="696" alt="boxart" src="https://github.com/user-attachments/assets/403d0262-0c76-4495-a521-9e3c16b955fb" />
+
 Двое амбициозных инопланетян на космическом корабле бороздили просторы вселенной в поисках планеты, которую они бы могли захватить для своих творческих экспериментов. Однажды они натыкаются на ярко-голубую планету, которая называется Земля.
 
 Они наблюдают за жителями этой планеты и узнают, что те крайне эмоциональные существа. Эта странная вещь — эмоция — кажется, способна так сильно на них воздействовать, что те буквально теряют над собой контроль. К тому же любопытные захватчики узнают, что люди очень любят проводить время в неком месте под названием «бар». Там они этот переизбыток эмоций глушат, и, похоже, только рады этому. Нашим захватчикам приходит невероятная идея постичь искусство управления эмоциями. Это ведь такой необычный способ захватить чужую планету!
@@ -56,3 +58,8 @@ This is the exact game (RU) that got submitted to the gamejam, below is the entr
 
 Игра сделана с помощью бесплатных открытых SDK Libdragon и библиотеки 3D графики Tiny3D
 В бинарниках игры нет ни одной строчки проприетарного кода
+
+<img width="640" height="480" alt="counteremotion_bar_ru 2025-07-14 20-10-02" src="https://github.com/user-attachments/assets/f1a4cfe5-9e0c-4119-88e8-2d4593dce938" />
+<img width="640" height="480" alt="t3d_01_model 2025-07-12 21-43-39" src="https://github.com/user-attachments/assets/53654bd2-7c56-4e70-b2aa-1e1a2f81aac4" />
+<img width="640" height="480" alt="t3d_01_model 2025-07-12 23-50-31" src="https://github.com/user-attachments/assets/5a63040b-db32-4a75-8f6b-806ea19768fa" />
+<img width="640" height="480" alt="t3d_01_model 2025-07-13 00-31-28" src="https://github.com/user-attachments/assets/e1ad6c7a-f3ab-463f-8881-9080f35e30ec" />
