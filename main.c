@@ -18,6 +18,8 @@ Made by SpookyIluha with some Tiny3D and Libdragon examples.
 
 #include "emotions.h"
 
+uint64_t gframecount = 0;
+
 bool coop = true;
 int mapnumber = 0;
 
@@ -65,6 +67,8 @@ inline int iwrap(int x, float min, float max) {
 
 int maxmap = 0;
 bool show_a_sprite = false;
+bool show_b_sprite = false;
+char* show_text = NULL;
 
 #define SHORTSTR_LENGTH 32
 
@@ -208,17 +212,31 @@ void audioutils_mixer_update(){
          transitiontime += display_get_delta_time();
         volume *= ( transitiontime /  transitiontimemax);
     }
-    mixer_ch_set_vol(AUDIO_CHANNEL_MUSIC, volume * 0.65f, volume * 0.65f);
+    //mixer_ch_set_vol(AUDIO_CHANNEL_MUSIC, volume * 0.65f, volume * 0.65f);
 }
 
+xm64player_t xm64player;
+bool xm64player_playing = false;
+
 void bgm_hardplay(const char* name, bool loop, float transition){
+  if(xm64player_playing){
+    xm64player_stop(&xm64player);
+    xm64player_close(&xm64player);
+  }
      loopingmusic = loop;
      transitionstate = 0;
      transitiontime = 0;
      transitiontimemax = 1;
-    wav64_t* mus = &bgmusic[audio_find_music(name)];
-    wav64_set_loop(mus,  loop);
-    wav64_play(mus, AUDIO_CHANNEL_MUSIC);
+     char fn[128]; sprintf(fn, "rom:/music/%s.xm64", name);
+     xm64player_open(&xm64player, fn);
+     xm64player_set_loop(&xm64player,loop);
+     xm64player_set_vol(&xm64player, bgmusic_vol * 0.65f);
+     xm64player_play(&xm64player, AUDIO_CHANNEL_MUSIC);
+     xm64player_playing = true;
+     //--wav-compress 1,bits=3 --wav-resample 16000 --wav-mono 
+    //wav64_t* mus = &bgmusic[audio_find_music(name)];
+   // wav64_set_loop(mus,  loop);
+    //wav64_play(mus, AUDIO_CHANNEL_MUSIC);
      bgmusic_playing = true;
     strcpy( bgmusic_name, name);
 }
@@ -330,7 +348,7 @@ comic_entry_t logo_intro[] = {
 
 comic_entry_t comics_intro[] = { 
   { "rom:/UI/intro1.ci8.sprite", "Two ambitious aliens aboard a spaceship roamed the universe in search of a planet they could conquer for their creative experiments.", 0 }, 
-  { "rom:/UI/intro2.ci8.sprite", "They observe the inhabitants of this planet Earth and learn that they are extremely emotional beings. This strange thing — emotion — seems capable of influencing them so strongly that they literally lose control over themselves.", 0 }, 
+  { "rom:/UI/intro2.ci8.sprite", "They observe the inhabitants of this planet Earth and learn that they are extremely emotional beings. This strange thing - emotion - seems capable of influencing them so strongly that they literally lose control over themselves.", 0 }, 
   { "rom:/UI/intro2.ci8.sprite", "Moreover, curious conquerors find out that humans love to spend time in a place called 'bar'. There, they suppress this excess of emotions, and it seems they are quite happy about it.", 0 }, 
   { "rom:/UI/intro2.ci8.sprite", "Our invaders come up with an incredible idea to master the art of controlling emotions. It’s such an unusual way to conquer an alien planet!", 0 }, 
   { "rom:/UI/intro3.ci8.sprite", "Using their advanced technologies, they easily identify two basic emotions that they can synthesize in liquid form. The task is to start field experiments! And perhaps, synthesize new ones for more subtle mind control.", 0 }, 
@@ -350,7 +368,7 @@ comic_entry_t level2_intro[] = {
   { "rom:/UI/dialogue.ci8.sprite", "Panshee: Incredible, isn't it? Humans didn't even react when our bar suddenly appeared out of nowhere!", 5 }, 
   { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: Yes, it's amazing! Plus, our liquid 'anti-emotion' development worked better than we expected.", 6 }, 
   { "rom:/UI/dialogue.ci8.sprite", "Panshee: And we've managed to become excellent baristas! Turns out, it's such a convenient way to conquer a planet.", 5 }, 
-  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: Exactly. And through close contact, we synthesized new anti-emotion solvents — for fear and anger.", 6}, 
+  { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: Exactly. And through close contact, we synthesized new anti-emotion solvents - for fear and anger.", 6}, 
   { "rom:/UI/dialogue.ci8.sprite", "Panshee: Wow! Tomorrow promises to be interesting. Looks like we can conduct much more complex experiments!", 5 }, 
   { "rom:/UI/dialogue.ci8.sprite", "Ready for level 2? Then starting in 3... 2... 1...", 0 } 
 };
@@ -372,7 +390,7 @@ comic_entry_t level4_intro[] = {
   { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: This is a real breakthrough for our conquest activities!", 6 }, 
   { "rom:/UI/dialogue.ci8.sprite", "Panshee: Very soon, this planet will be ready to show itself to our colony.", 5 }, 
   { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: And the bar is becoming more popular! By the way, we had a visitor here... A big shot! Promised to throw a big party tonight. There will be a lot of work.", 6}, 
-  { "rom:/UI/dialogue.ci8.sprite", "Panshee: That's great, more test subjects! But... there's a problem — we have very little anti-emotion solvent left.", 5 }, 
+  { "rom:/UI/dialogue.ci8.sprite", "Panshee: That's great, more test subjects! But... there's a problem - we have very little anti-emotion solvent left.", 5 }, 
   { "rom:/UI/dialogue.ci8.sprite", "Sen-shee: Yes, we need to carefully listen to visitors and prepare cocktails with all the items we've got. We can't afford mistakes!", 6}, 
   { "rom:/UI/dialogue.ci8.sprite", "Ready for the final level? Then starting in 3... 2... 1...", 0 } 
 };
@@ -395,6 +413,7 @@ sprite_t* background;
 rspq_block_t* background_block;
 
 void show_comic(comic_entry_t comic[], int count){
+    rspq_wait();
     for(int i = 0; i < count; i++){
         float logotime = 0;
         if(background_block) {rspq_block_free(background_block); background_block = NULL;}
@@ -432,6 +451,8 @@ void show_comic(comic_entry_t comic[], int count){
             textparms.wrap = WRAP_WORD;
             textparms.style_id = comic[i].style;
             rdpq_text_printf(&textparms, 3, 50, 300, comic[i].text);
+            //heap_stats_t stats; sys_get_heap_stats(&stats);
+            //rdpq_text_printf(NULL, 1, 100,100, "Mem: %i total %i used", stats.total, stats.used);
             audioutils_mixer_update();
             rdpq_detach_show();
             logotime += display_get_delta_time();
@@ -448,10 +469,12 @@ void show_comic(comic_entry_t comic[], int count){
         if(background_block) {rspq_block_free(background_block); background_block = NULL;}
         if(background) {sprite_free(background); background = NULL;}
     }   
+    rspq_wait();
 }
 
 
 void show_comic_credits(comic_entry_t comic[], int count){
+    rspq_wait();
     for(int i = 0; i < count; i++){
         float logotime = 0;
         if(background_block) {rspq_block_free(background_block); background_block = NULL;}
@@ -754,11 +777,11 @@ void menu_main(){
             switch(selection){
                 case 0: 
                     coop = false;
-                    return;
+                    goto menu_main_end;
                     break;
                 case 1: 
-                    coop = true; 
-                    return;
+                    coop = true;
+                    goto menu_main_end;
                     break;
                 case 2:
                     music_volume(1 - music_volume_get());
@@ -775,7 +798,7 @@ void menu_main(){
 
         rdpq_attach(display_get(), NULL);
         rdpq_set_scissor(0,0, 640, 480);
-                if(display_interlace_rdp_field() >= 0) 
+        if(display_interlace_rdp_field() >= 0) 
              rdpq_enable_interlaced(display_interlace_rdp_field());
         else rdpq_disable_interlaced();
         render_background();
@@ -794,12 +817,16 @@ void menu_main(){
         rdpq_text_printf(&parmstext, 2, 0 + offset,240, "Music: %s", music_volume_get() > 0.5f? "On" : "Off");
         rdpq_text_printf(&parmstext, 2, 0 + offset,280, "Sounds: %s", sound_volume_get() > 0.5f? "On" : "Off");
 
+        //heap_stats_t stats; sys_get_heap_stats(&stats);
+        //rdpq_text_printf(NULL, 1, 100,100, "Mem: %i total %i used", stats.total, stats.used);
+
         rdpq_detach_show();
     }
+menu_main_end:
     rspq_wait();
     if(background_block) {rspq_block_free(background_block); background_block = NULL;}
     if(background) {sprite_free(background); background = NULL;}
-
+    if(selector) {sprite_free(selector); selector = NULL;}
 }
 
 typedef struct{
@@ -884,7 +911,7 @@ void items_init(){
   for(int i = 0; i < itemscount; i++){
       item_t* item = &items[i];
       item->model = t3d_model_load(item->modelname);
-      item->modelMatFP = malloc_uncached(sizeof(T3DMat4FP));
+      item->modelMatFP = malloc_uncached(sizeof(T3DMat4FP) * 3);
       item->position = item->position_rest;
       item->enabled = false;
       item->held = false;
@@ -895,7 +922,7 @@ void items_free(){
   for(int i = 0; i < itemscount; i++){
       item_t* item = &items[i];
       item->model = t3d_model_load(item->modelname);
-      item->modelMatFP = malloc_uncached(sizeof(T3DMat4FP));
+      item->modelMatFP = malloc_uncached(sizeof(T3DMat4FP) * 3);
 
       if(item->model){ t3d_model_free(item->model); item->model = NULL; }
       if(item->modelMatFP){ free_uncached(item->modelMatFP); item->modelMatFP = NULL; }
@@ -906,7 +933,7 @@ void items_free(){
 void items_update(){
   for(int i = 0; i < itemscount; i++){
       item_t* item = &items[i];
-      t3d_mat4fp_from_srt_euler(item->modelMatFP,
+      t3d_mat4fp_from_srt_euler(&item->modelMatFP[gframecount % 3],
           (float[3]){0.1f, 0.1f, 0.1f},
           (float[3]){0.0f, 0, 0},
           item->position.v
@@ -920,7 +947,7 @@ void items_draw(){
       if(!item->enabled) continue;
       float brightness = (sinf((float)get_ticks_ms() / 200.0f) + 1.0f) * 50.0f; 
       rdpq_set_prim_color(RGBA32(brightness,brightness,brightness, 255));
-      t3d_matrix_push(item->modelMatFP);
+      t3d_matrix_push(&item->modelMatFP[gframecount % 3]);
       t3d_model_draw(item->model);
       t3d_matrix_pop(1);
     }
@@ -1015,8 +1042,8 @@ player_t players[2];
 void stools_init(){
   for(int i = 0; i < stoolscount; i++){
       stool_t* stool = &stools[i];
-      stool->modelMatFP = malloc_uncached(sizeof(T3DMat4FP));
-      stool->person.modelMatFP = malloc_uncached(sizeof(T3DMat4FP));
+      stool->modelMatFP = malloc_uncached(sizeof(T3DMat4FP)  * 3);
+      stool->person.modelMatFP = malloc_uncached(sizeof(T3DMat4FP) * 3);
 
       stool->person.model = t3d_model_load("rom:/visitor.t3dm");
       stool->person.model_waiting = t3d_model_load("rom:/waiting.t3dm");
@@ -1146,7 +1173,7 @@ void stools_update(){
         default: break;
       }
       t3d_skeleton_blend(&stool->person.skeleton, &stool->person.skeleton, &stool->person.skelBlend, stool->person.animblend);
-        t3d_mat4fp_from_srt_euler(stool->person.modelMatFP,
+        t3d_mat4fp_from_srt_euler(&stool->person.modelMatFP[gframecount % 3],
           (float[3]){0.1, 0.1, 0.1},
           (float[3]){0.0f, stool->person.yaw, 0},
           stool->person.position.v
@@ -1161,7 +1188,7 @@ void stools_draw(){
       stool_t* stool = &stools[i];
       if(stool->state == STOOL_WAITING_GLASS){
 
-        t3d_mat4fp_from_srt_euler(stool->modelMatFP,
+        t3d_mat4fp_from_srt_euler(&stool->modelMatFP[gframecount % 3],
           (float[3]){0.1f, 0.1f, 0.1f},
           (float[3]){0.0f, 0, 0},
           stool->position.v
@@ -1176,20 +1203,20 @@ void stools_draw(){
 
       if(stool->state  != STOOL_EMPTY){
         rdpq_set_env_color(stool->person.color);
+        t3d_matrix_push(&stool->person.modelMatFP[gframecount % 3]);
         if(!stool->person.dplDraw) {
           rspq_block_begin();
-          t3d_matrix_push(stool->person.modelMatFP);
           t3d_model_draw_skinned(stool->person.model, &stool->person.skeleton); // as in the last example, draw skinned with the main skeletont3d_model_draw_skinned(model, &skel); // as in the last example, draw skinned with the main skeletonv
           t3d_matrix_pop(1);
           stool->person.dplDraw = rspq_block_end();
         } rspq_block_run(stool->person.dplDraw);
         if(stool->state == STOOL_WAITING_STORY){
-          t3d_matrix_push(stool->person.modelMatFP);
+          t3d_matrix_push(&stool->person.modelMatFP[gframecount % 3]);
           t3d_model_draw(stool->person.model_waiting);
           t3d_matrix_pop(1);
         }
         if(stool->person.timer < 20){
-          t3d_matrix_push(stool->person.modelMatFP);
+          t3d_matrix_push(&stool->person.modelMatFP[gframecount % 3]);
           t3d_model_draw(stool->person.model_waiting_timer);
           t3d_matrix_pop(1);
         }
@@ -1198,7 +1225,7 @@ void stools_draw(){
 }
 
 void player_init(player_t*  player, bool second){
-    player->modelMatFP = malloc_uncached(sizeof(T3DMat4FP));
+    player->modelMatFP = malloc_uncached(sizeof(T3DMat4FP) * 3);
     if(second) player->model = t3d_model_load("rom:/barman_pink.t3dm");
     else player->model = t3d_model_load("rom:/barman_blue.t3dm");
     player->skeleton = t3d_skeleton_create(player->model);
@@ -1263,6 +1290,7 @@ void player_update(player_t*  player, bool second){
 
     if(player->talking >= 0){
       show_a_sprite = true;
+      show_text = "Continue";
       if(pressed.a){
         int randomtalk = rand() % 3;
         switch(randomtalk){
@@ -1328,8 +1356,10 @@ void player_update(player_t*  player, bool second){
             itemindex = i;
           }
         }
-        if(mindist < T3D_TOUNITS(2.0f) && !items[itemindex].held)
+        if(mindist < T3D_TOUNITS(2.0f) && !items[itemindex].held){
           show_a_sprite = true;
+          show_text = "Grab";
+        }
         if(input.btn.a && itemindex >= 0 && mindist < T3D_TOUNITS(2.0f) && !items[itemindex].held){
           player->itemheldindex = itemindex;
           sound_play("grab", false);
@@ -1356,7 +1386,8 @@ void player_update(player_t*  player, bool second){
 
         T3DVec3 offset = {{0,T3D_TOUNITS(1.7f), 0}};
         t3d_vec3_add(&items[player->itemheldindex].position, &items[player->itemheldindex].position, &offset);
-
+      show_b_sprite = true;
+      show_text = "Cancel";
       if(input.btn.b){
         items[player->itemheldindex].position = items[player->itemheldindex].position_rest;
         items[player->itemheldindex].held = false;
@@ -1367,6 +1398,7 @@ void player_update(player_t*  player, bool second){
         if(player->itemheldindex == ITEM_GLASS){
             if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING && mindiststool < T3D_TOUNITS(2)){
               show_a_sprite = true;
+              show_text = "Place glass";
               if(pressed.a)
                 {
                   stools[player->closeststool].state = STOOL_WAITING_GLASS;
@@ -1380,6 +1412,7 @@ void player_update(player_t*  player, bool second){
         else if(player->itemheldindex < ITEM_GLASS){
             if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING_GLASS){
               show_a_sprite = true;
+              show_text = "Pour";
               if(input.btn.a && items[player->itemheldindex].amount > 0)
                 {
                   debugf("stool emotions = %f %f %f %f\n", stools[player->closeststool].emotions.happy, stools[player->closeststool].emotions.sad, stools[player->closeststool].emotions.angry, stools[player->closeststool].emotions.scared);
@@ -1412,6 +1445,7 @@ void player_update(player_t*  player, bool second){
         else if(player->itemheldindex > ITEM_GLASS){
             if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING_GLASS){
               show_a_sprite = true;
+              show_text = "End serving";
               if(pressed.a)
                 {
                   debugf("stool emotions = %f %f %f %f\n", stools[player->closeststool].emotions.happy, stools[player->closeststool].emotions.sad, stools[player->closeststool].emotions.angry, stools[player->closeststool].emotions.scared);
@@ -1446,6 +1480,7 @@ void player_update(player_t*  player, bool second){
         else if(player->itemheldindex < 0){
             if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING_GLASS){
               show_a_sprite = true;
+              show_text = "Use item";
                 if(input.btn.a && items[player->itemheldindex].amount > 0)
                   {
                     show_a_sprite = true;
@@ -1466,6 +1501,7 @@ void player_update(player_t*  player, bool second){
     } else{
       if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING_STORY){
         show_a_sprite = true;
+        show_text = "Talk to client";
           if(pressed.a)
             {
               debugf("stool person emotions = %f %f %f %f\n", stools[player->closeststool].person.emotions.happy, stools[player->closeststool].person.emotions.sad, stools[player->closeststool].person.emotions.angry, stools[player->closeststool].person.emotions.scared);
@@ -1475,7 +1511,8 @@ void player_update(player_t*  player, bool second){
           }
       if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING_GLASS){
         show_a_sprite = true;
-          if(pressed.a || pressed.b)
+        show_text = "End serving";
+          if(pressed.a)
             {
               float filled = stools[player->closeststool].emotions.happy + stools[player->closeststool].emotions.sad + stools[player->closeststool].emotions.angry + stools[player->closeststool].emotions.scared;
               if(player->talking != 50){
@@ -1532,7 +1569,7 @@ void player_update(player_t*  player, bool second){
           }
           
     }
-    t3d_mat4fp_from_srt_euler(player->modelMatFP,
+    t3d_mat4fp_from_srt_euler(&player->modelMatFP[gframecount % 3],
       (float[3]){0.1f, 0.1f, 0.1f},
       (float[3]){0.0f, player->inputyaw, 0},
       player->position.v
@@ -1541,9 +1578,9 @@ void player_update(player_t*  player, bool second){
 }
 
 void player_draw(player_t* player, bool second){
+    t3d_matrix_push(&player->modelMatFP[gframecount % 3]);
     if(!player->dplDraw) {
       rspq_block_begin();
-      t3d_matrix_push(player->modelMatFP);
       t3d_model_draw_skinned(player->model, &player->skeleton); // as in the last example, draw skinned with the main skeletont3d_model_draw_skinned(model, &skel); // as in the last example, draw skinned with the main skeletonv
       t3d_matrix_pop(1);
       player->dplDraw = rspq_block_end();
@@ -1755,7 +1792,7 @@ void init(){
   vi_init();
   rdpq_init();
 
-  audio_init(28000, 8);
+  audio_init(28000, 4);
   mixer_init(24); 
 
   audio_prewarm_all();
@@ -1856,6 +1893,7 @@ void map_init(int mapnum){
 }
 
 sprite_t* a_button;
+sprite_t* b_button;
 
 void check_memory_expanded(){
     if(!is_memory_expanded()){
@@ -1882,7 +1920,7 @@ int main()
   effects_rumble_stop();
   libdragon_logo();
   setup();
-  check_memory_expanded();
+  //check_memory_expanded();
   bgm_hardplay("menu_music", true, 0.1f);
   
   show_comic(logo_intro, 1);
@@ -1895,6 +1933,7 @@ int main()
           rspq_wait();
 
   a_button = sprite_load("rom:/UI/button_a.rgba32.sprite");
+  b_button = sprite_load("rom:/UI/button_b.rgba32.sprite");
 
   while(true){
     menu_main();
@@ -1964,6 +2003,8 @@ int main()
       for(;;)
       {
         show_a_sprite = false;
+        show_b_sprite = false;
+        show_text = NULL;
         framecount++;
         // ======== Update ======== //
         rotAngle -= 0.00f;
@@ -2039,7 +2080,8 @@ int main()
                 nextitem_time -= display_get_delta_time();
               }
             }
-
+            
+            gframecount++;
             player_update(&players[0], false);
             if(coop) player_update(&players[1], true);
             items_update();
@@ -2181,13 +2223,20 @@ int main()
           rdpq_text_printf(NULL, 2, 200,200, "Paused\n\nSTART - Continue\nA - Retry\nB - Exit to menu");
         }
 
-        if(show_a_sprite){
+        if(show_text){
+          rdpq_text_printf(NULL, 2, 340,420, show_text);
+        }
+
+        if(show_a_sprite || show_b_sprite){
           rdpq_sync_pipe();
           rdpq_sync_tile();
           rdpq_set_mode_standard();
           rdpq_mode_blender(RDPQ_BLENDER_MULTIPLY);
-          rdpq_sprite_blit(a_button, 300, 400, NULL);
+          if(show_b_sprite && !show_a_sprite) rdpq_sprite_blit(b_button, 300, 400, NULL);
+          if(show_a_sprite)                   rdpq_sprite_blit(a_button, 300, 400, NULL);
         }
+        //heap_stats_t stats; sys_get_heap_stats(&stats);
+        //rdpq_text_printf(NULL, 1, 100,100, "Mem: %i total %i used", stats.total, stats.used);
 
         audioutils_mixer_update();
         rdpq_detach_show();
@@ -2210,6 +2259,7 @@ int main()
       stools_free();
       level_fill_current = 0.5f;
       
+      display_free_zbuf();
 
     }
 

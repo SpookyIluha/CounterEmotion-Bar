@@ -5,6 +5,7 @@ include $(N64_INST)/include/n64.mk
 include $(N64_INST)/include/t3d.mk
 
 N64_CFLAGS += -std=gnu2x
+N64_C_AND_CXX_FLAGS += -ftrivial-auto-var-init=zero
 
 src = main.c
 
@@ -13,25 +14,25 @@ assets_ui = $(wildcard assets/UI/*.png)
 assets_gltf = $(wildcard assets/*.glb)
 assets_ttf = $(wildcard assets/*.ttf)
 SOUND_LIST  = $(shell find assets/sfx/ -type f -name '*.wav')
-MUSIC_LIST  = $(shell find assets/music/ -type f -name '*.wav')
+MUSIC_LIST  = $(shell find assets/music/ -type f -name '*.xm')
 assets_conv = $(addprefix filesystem/,$(notdir $(assets_png:%.png=%.sprite))) \
 			  $(addprefix filesystem/,$(notdir $(assets_ttf:%.ttf=%.font64))) \
 			  $(addprefix filesystem/,$(notdir $(assets_gltf:%.glb=%.t3dm))) \
 			  $(addprefix filesystem/UI/,$(notdir $(assets_ui:%.png=%.sprite))) \
 			  $(addprefix filesystem/sfx/,$(notdir $(SOUND_LIST:%.wav=%.wav64))) \
-			  $(addprefix filesystem/music/,$(notdir $(MUSIC_LIST:%.wav=%.wav64)))
+			  $(addprefix filesystem/music/,$(notdir $(MUSIC_LIST:%.xm=%.xm64)))
 
 all: counteremotion_bar.z64
 
 filesystem/%.sprite: assets/%.png
 	@mkdir -p $(dir $@)
 	@echo "    [SPRITE] $@"
-	$(N64_MKSPRITE) $(MKSPRITE_FLAGS) -o filesystem "$<"
+	$(N64_MKSPRITE) $(MKSPRITE_FLAGS) -v -o filesystem "$<"
 
 filesystem/UI/%.sprite: assets/UI/%.png
 	@mkdir -p $(dir $@)
 	@echo "    [SPRITE] $@"
-	$(N64_MKSPRITE) $(MKSPRITE_FLAGS) --dither ORDERED -o filesystem/UI "$<"
+	$(N64_MKSPRITE) $(MKSPRITE_FLAGS) --dither ORDERED -c 2 -o filesystem/UI "$<"
 
 filesystem/%.t3dm: assets/%.glb
 	@mkdir -p $(dir $@)
@@ -49,10 +50,10 @@ filesystem/sfx/%.wav64: assets/sfx/%.wav
 	@echo "    [SFX] $@"
 	$(N64_AUDIOCONV) --wav-compress 1 --wav-resample 28000 -o $(dir $@) "$<"
 
-filesystem/music/%.wav64: assets/music/%.wav
+filesystem/music/%.xm64: assets/music/%.xm
 	@mkdir -p $(dir $@)
 	@echo "    [MUSIC] $@"
-	$(N64_AUDIOCONV) --wav-compress 1,bits=3 --wav-resample 16000 --wav-mono -o $(dir $@) "$<"
+	$(N64_AUDIOCONV) -o $(dir $@) "$<"
 
 $(BUILD_DIR)/counteremotion_bar.dfs: $(assets_conv)
 $(BUILD_DIR)/counteremotion_bar.elf: $(src:%.c=$(BUILD_DIR)/%.o)
