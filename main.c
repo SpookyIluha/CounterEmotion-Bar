@@ -28,6 +28,9 @@ float exposure = 5;
 rdpq_font_t* font;
 rdpq_font_t* font2;
 
+sprite_t* a_button;
+sprite_t* b_button;
+
 #define T3D_TOUNITS(x) (6.4f*x)
 #define T3D_FROMUNITS(x) (x*(1.0/64.0f))
 
@@ -444,6 +447,12 @@ void show_comic(comic_entry_t comic[], int count){
                 background_block = rspq_block_end();
             } rspq_block_run(background_block);
 
+            rdpq_set_mode_standard();
+            rdpq_mode_blender(RDPQ_BLENDER_MULTIPLY);
+            rdpq_mode_dithering(DITHER_BAYER_INVBAYER);
+            rdpq_mode_combiner(RDPQ_COMBINER_TEX);
+            rdpq_sprite_blit(a_button, 580, 430, NULL);
+
             rdpq_textparms_t textparms = {0};
             textparms.width = 550;
             textparms.height = 200;
@@ -504,6 +513,12 @@ void show_comic_credits(comic_entry_t comic[], int count){
                 rdpq_sprite_blit(background,0,0,NULL);
                 background_block = rspq_block_end();
             } rspq_block_run(background_block);
+
+            rdpq_set_mode_standard();
+            rdpq_mode_blender(RDPQ_BLENDER_MULTIPLY);
+            rdpq_mode_dithering(DITHER_BAYER_INVBAYER);
+            rdpq_mode_combiner(RDPQ_COMBINER_TEX);
+            rdpq_sprite_blit(a_button, 580, 430, NULL);
 
             rdpq_textparms_t textparms = {0};
             textparms.width = 550;
@@ -808,14 +823,17 @@ void menu_main(){
         rdpq_set_prim_color(RGBA32(100,200,250,255));
         rdpq_mode_blender(RDPQ_BLENDER_MULTIPLY);
         rdpq_mode_dithering(DITHER_BAYER_INVBAYER);
-        rdpq_sprite_blit(selector, 80 + offset, 165 + selection*40, NULL);
+        rdpq_sprite_blit(selector, 100 + offset, 165 + selection*40, NULL);
+
+        rdpq_mode_combiner(RDPQ_COMBINER_TEX);
+        rdpq_sprite_blit(a_button, 65 + offset, 165 + selection*40, NULL);
 
         rdpq_textparms_t parmstext = {0}; parmstext.valign = VALIGN_CENTER; parmstext.align = ALIGN_CENTER; parmstext.width = display_get_width() / 2; parmstext.height = 80; parmstext.style_id = 1;
         parmstext.height = 40;
-        rdpq_text_printf(&parmstext, 2, 0 + offset,160, maxmap > 0? "Continue" : "Play");
-        rdpq_text_printf(&parmstext, 2, 0 + offset,200, "Co-op");
-        rdpq_text_printf(&parmstext, 2, 0 + offset,240, "Music: %s", music_volume_get() > 0.5f? "On" : "Off");
-        rdpq_text_printf(&parmstext, 2, 0 + offset,280, "Sounds: %s", sound_volume_get() > 0.5f? "On" : "Off");
+        rdpq_text_printf(&parmstext, 2, 20 + offset,160, maxmap > 0? "Continue" : "Play");
+        rdpq_text_printf(&parmstext, 2, 20 + offset,200, "Co-op");
+        rdpq_text_printf(&parmstext, 2, 20 + offset,240, "Music: %s", music_volume_get() > 0.5f? "On" : "Off");
+        rdpq_text_printf(&parmstext, 2, 20 + offset,280, "Sounds: %s", sound_volume_get() > 0.5f? "On" : "Off");
 
         //heap_stats_t stats; sys_get_heap_stats(&stats);
         //rdpq_text_printf(NULL, 1, 100,100, "Mem: %i total %i used", stats.total, stats.used);
@@ -1809,6 +1827,9 @@ void setup(){
 
   ui_init();
 
+  a_button = sprite_load("rom:/UI/button_a.rgba32.sprite");
+  b_button = sprite_load("rom:/UI/button_b.rgba32.sprite");
+
   font = rdpq_font_load("rom:/BulatovSPDemo.font64");
   font2 = rdpq_font_load("rom:/TTHoves-Medium.font64");
 
@@ -1892,9 +1913,6 @@ void map_init(int mapnum){
   }
 }
 
-sprite_t* a_button;
-sprite_t* b_button;
-
 void check_memory_expanded(){
     if(!is_memory_expanded()){
         rspq_wait();
@@ -1932,8 +1950,6 @@ int main()
         rspq_wait();
           rspq_wait();
 
-  a_button = sprite_load("rom:/UI/button_a.rgba32.sprite");
-  b_button = sprite_load("rom:/UI/button_b.rgba32.sprite");
 
   while(true){
     menu_main();
