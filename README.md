@@ -18,7 +18,7 @@ Made by SpookyIluha and Feijoatl
 
 This is an updated entry that has been translated and has a few fixes, the original gamejam entry can be found in the original_ru branch and Gamejam Entry (RU) release.
 
-<img width="1000" height="696" alt="boxart_en" src="https://github.com/user-attachments/assets/7bd00bf2-1a9b-4f36-8c03-e676be2d24b3" />
+<img width="1000" height="696" alt="boxart_en" src="https://github.com/user-attachments/assets/fcad2e14-c2dd-4665-9b2b-50ed8e86ee8d" />
 
 Two ambitious aliens aboard a spaceship were exploring the vastness of the universe in search of a planet they could conquer for their creative experiments. One day, they come across a bright blue planet called Earth.
 
