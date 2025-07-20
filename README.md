@@ -42,8 +42,6 @@ Copy the .z64 ROM file from the ./gamedata folder onto any flash cartridge and r
 
 Controls on the console: [Stick] - move and navigate menus [A/B] - interact and cancel respectively [Start] - open menu
 
-The game requires an Expansion Pak!
-
 --------------------Additional Information-----------------------------
 
 Gameplay walkthrough: https://www.youtube.com/watch?v=8nadt5Nj7ZU
