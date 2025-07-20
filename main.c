@@ -1667,9 +1667,9 @@ void draw_ui(player_t* player, bool second){
       rdpq_sprite_blit(ui_elements.header, 70,30, NULL);
     }
 
-    if(player->itemheldindex >= 0 && player->itemheldindex < 4) rdpq_sprite_blit(second? ui_elements.bottle_pink : ui_elements.bottle_blue, second? 610 - 65 : 30,210, NULL);
-    if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING_GLASS) rdpq_sprite_blit(second? ui_elements.cup_pink : ui_elements.cup_blue, second? 610 - 80 : 30,350, NULL);
-    rdpq_sprite_blit(second? ui_elements.footer_pink : ui_elements.footer_blue, second? 610 - 180 : 30,425, NULL);
+    if(player->itemheldindex >= 0 && player->itemheldindex < 4) rdpq_sprite_blit(second? ui_elements.bottle_pink : ui_elements.bottle_blue, second? 618 - 65 : 30,210, NULL);
+    if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING_GLASS) rdpq_sprite_blit(second? ui_elements.cup_pink : ui_elements.cup_blue, second? 618 - 80 : 30,350, NULL);
+    rdpq_sprite_blit(second? ui_elements.footer_pink : ui_elements.footer_blue, second? 618 - 180 : 30,425, NULL);
     if(player->itemheldindex >= 0) rdpq_sprite_blit(second? ui_elements.effect_pink : ui_elements.effect_blue, second? 610 - 230 : 110, 410, NULL); 
 
     if(!second){
@@ -1759,7 +1759,7 @@ void draw_ui(player_t* player, bool second){
         textparms.align = ALIGN_LEFT; textparms.valign = VALIGN_TOP;
         textparms.wrap = WRAP_WORD;
         textparms.style_id = style;
-      rdpq_text_printf(&textparms, 3, second? 330 : 30, 90, "CUSTOMER:\n%s", text);
+      rdpq_text_printf(&textparms, 3, second? 310 : 30, 90, "CUSTOMER:\n%s", text);
     }
 
     if(!second)
@@ -2224,7 +2224,8 @@ int main()
         }
 
         if(show_text){
-          rdpq_text_printf(NULL, 2, 340,420, show_text);
+          rdpq_textparms_t parms; parms.width = 640; parms.align = ALIGN_CENTER;
+          rdpq_text_printf(&parms, 2, 0,390, show_text);
         }
 
         if(show_a_sprite || show_b_sprite){
