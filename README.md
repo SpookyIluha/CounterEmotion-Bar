@@ -15,7 +15,7 @@ Made by SpookyIluha and Feijoatl
 
 This is the exact game (RU) that got submitted to the gamejam, below is the entry's readme:
 
-<img width="1000" height="696" alt="boxart" src="https://github.com/user-attachments/assets/403d0262-0c76-4495-a521-9e3c16b955fb" />
+<img width="1000" height="696" alt="boxart" src="https://github.com/user-attachments/assets/54d6e326-3f1e-4c98-9659-0be2b26ff876" />
 
 Двое амбициозных инопланетян на космическом корабле бороздили просторы вселенной в поисках планеты, которую они бы могли захватить для своих творческих экспериментов. Однажды они натыкаются на ярко-голубую планету, которая называется Земля.
 
