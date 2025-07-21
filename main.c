@@ -233,7 +233,7 @@ void bgm_hardplay(const char* name, bool loop, float transition){
      char fn[128]; sprintf(fn, "rom:/music/%s.xm64", name);
      xm64player_open(&xm64player, fn);
      xm64player_set_loop(&xm64player,loop);
-     xm64player_set_vol(&xm64player, bgmusic_vol * 0.65f);
+     xm64player_set_vol(&xm64player, bgmusic_vol * 0.5f);
      xm64player_play(&xm64player, AUDIO_CHANNEL_MUSIC);
      xm64player_playing = true;
      //--wav-compress 1,bits=3 --wav-resample 16000 --wav-mono 
@@ -295,6 +295,7 @@ void sound_stop(){
 
 void music_volume(float vol){
     bgmusic_vol = vol;
+    xm64player_set_vol(&xm64player,bgmusic_vol * 0.5f);
 }
 
 void sound_volume(float vol){
@@ -451,7 +452,7 @@ void show_comic(comic_entry_t comic[], int count){
             rdpq_mode_blender(RDPQ_BLENDER_MULTIPLY);
             rdpq_mode_dithering(DITHER_BAYER_INVBAYER);
             rdpq_mode_combiner(RDPQ_COMBINER_TEX);
-            rdpq_sprite_blit(a_button, 580, 430, NULL);
+            rdpq_sprite_blit(a_button, 570, 420, NULL);
 
             rdpq_textparms_t textparms = {0};
             textparms.width = 550;
@@ -513,12 +514,6 @@ void show_comic_credits(comic_entry_t comic[], int count){
                 rdpq_sprite_blit(background,0,0,NULL);
                 background_block = rspq_block_end();
             } rspq_block_run(background_block);
-
-            rdpq_set_mode_standard();
-            rdpq_mode_blender(RDPQ_BLENDER_MULTIPLY);
-            rdpq_mode_dithering(DITHER_BAYER_INVBAYER);
-            rdpq_mode_combiner(RDPQ_COMBINER_TEX);
-            rdpq_sprite_blit(a_button, 580, 430, NULL);
 
             rdpq_textparms_t textparms = {0};
             textparms.width = 550;
@@ -1343,6 +1338,10 @@ void player_update(player_t*  player, bool second){
           player->talking = -1;
           stools[player->talking_npc].state = STOOL_WAITING;
         }
+        if(player->talking == 102 || player->talking == 112 || player->talking == 122 || player->talking == 132) {
+          player->talking = -1;
+          stools[player->talking_npc].state = STOOL_LEAVING;
+        }
       }
     }
 
@@ -1398,6 +1397,8 @@ void player_update(player_t*  player, bool second){
         }
     }
 
+    if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING && mindiststool < T3D_TOUNITS(2) && player->talking < 0)
+          show_text = "You need a glass!";
     if(player->itemheldindex >= 0){
 
       items[player->itemheldindex].position = player->position;
@@ -1519,7 +1520,7 @@ void player_update(player_t*  player, bool second){
     } else{
       if(player->closeststool >= 0 && stools[player->closeststool].state == STOOL_WAITING_STORY){
         show_a_sprite = true;
-        show_text = "Talk to client";
+        show_text = "Talk to customer";
           if(pressed.a)
             {
               debugf("stool person emotions = %f %f %f %f\n", stools[player->closeststool].person.emotions.happy, stools[player->closeststool].person.emotions.sad, stools[player->closeststool].person.emotions.angry, stools[player->closeststool].person.emotions.scared);
@@ -1574,7 +1575,13 @@ void player_update(player_t*  player, bool second){
                     }
 
                   } else{
-                    player->talking = 30;
+                    int emotionfailed = 0;
+                    float maxemotiondist = stools[player->closeststool].person.emotions.happy - stools[player->closeststool].emotions.happy;
+                    float distance = stools[player->closeststool].person.emotions.sad - stools[player->closeststool].emotions.sad; if(distance > maxemotiondist && distance > 0) {maxemotiondist = distance; emotionfailed = 1;}
+                    distance = stools[player->closeststool].person.emotions.angry - stools[player->closeststool].emotions.angry; if(distance > maxemotiondist && distance > 0) {maxemotiondist = distance; emotionfailed = 2;}
+                    distance = stools[player->closeststool].person.emotions.scared - stools[player->closeststool].emotions.scared; if(distance > maxemotiondist && distance > 0) {maxemotiondist = distance; emotionfailed = 3;}
+
+                    player->talking = 100 + 10 * emotionfailed;
                     sound_play("incorrect", false);
                     effects_add_rumble(JOYPAD_PORT_1, 0.25f);
                     if(coop) effects_add_rumble(JOYPAD_PORT_2, 0.25f);
@@ -1758,9 +1765,6 @@ void draw_ui(player_t* player, bool second){
         if(player->talking == 10){
           text = "Are you finished? But there's nothing here! Then I'll go to another bar!";
         }
-        if(player->talking == 30){
-          text = "No, this mixture isn't helping! I'm overwhelmed with emotions! Aaargh! I don't know what to do!";
-        }
         if(player->talking == 20){
           text = "Yes, that's just what I need! I don't feel anything at all! Thank you!";
         }
@@ -1769,6 +1773,26 @@ void draw_ui(player_t* player, bool second){
         }
         if(player->talking == 50){
           text = "Yes, that's just what I need! More! Pour me some of the same!";
+        }
+
+        if(player->talking == 100 || player->talking == 110 || player->talking == 120 || player->talking == 130){
+          text = "No, this mixture isn't helping! I'm overwhelmed with emotions! Aaargh! I don't know what to do!";
+        }
+        if(player->talking == 101){
+          text = "I feel like there's still happiness inside me...";
+          style = 1;
+        }
+        if(player->talking == 111){
+          text = "I still feel sadness overwhelming me!";
+          style = 2;
+        }
+        if(player->talking == 121){
+          text = "I'm still angry and ready to tear apart everything!";
+          style = 3;
+        }
+        if(player->talking == 131){
+          text = "I still feel scared for everything I've done!";
+          style = 4;
         }
       }
         rdpq_textparms_t textparms = {0};
@@ -1973,7 +1997,8 @@ int main()
       show_comic(maps[mapnumber].comic_pre, maps[mapnumber].comic_entry_pre_count);
       //show_comic(comics_intro, comics_intro_texts, 12);
 
-      T3DViewport viewport = t3d_viewport_create();
+      T3DViewport viewport[3];
+      for(int i = 0; i < 3; i++) viewport[i] = t3d_viewport_create();
 
       T3DMat4 modelMat; // matrix for our model, this is a "normal" float matrix
       t3d_mat4_identity(&modelMat);
@@ -2134,8 +2159,8 @@ int main()
         const T3DVec3 camOffset = {{-5,25,32}};
         t3d_vec3_add(&camPos, &camTarget, &camOffset);
 
-        t3d_viewport_set_projection(&viewport, T3D_DEG_TO_RAD(65.0f), 5.0f, 80.0f);
-        t3d_viewport_look_at(&viewport, &camPos, &camTarget, &(T3DVec3){{0,1,0}});
+        t3d_viewport_set_projection(&viewport[gframecount % 3], T3D_DEG_TO_RAD(65.0f), 5.0f, 80.0f);
+        t3d_viewport_look_at(&viewport[gframecount % 3], &camPos, &camTarget, &(T3DVec3){{0,1,0}});
 
         // slowly rotate model, for more information on matrices and how to draw objects
         // see the example: "03_objects"
@@ -2157,7 +2182,7 @@ int main()
         // ======== Draw ======== //
         rdpq_attach(display_get(), display_get_zbuf());
         t3d_frame_start();
-        t3d_viewport_attach(&viewport);
+        t3d_viewport_attach(&viewport[gframecount % 3]);
         rdpq_set_scissor(0,0, 640, 480);
         if(display_interlace_rdp_field() >= 0) 
              rdpq_enable_interlaced(display_interlace_rdp_field());
