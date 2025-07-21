@@ -769,7 +769,7 @@ void menu_main(){
     sprite_t* selector = sprite_load("rom:/UI/effect_pink.sprite");
 
     int selection = 0;
-    float offset = 400;
+    float offset = -400;
 
     while(true){
         offset = fm_lerp(offset,0, 0.25f);
@@ -800,7 +800,7 @@ void menu_main(){
                     sound_volume(1 - sound_volume_get());
                     break;
             }
-            offset = 400;
+            offset = -400;
         }
 
         audioutils_mixer_update();
