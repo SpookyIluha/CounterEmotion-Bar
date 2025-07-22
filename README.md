@@ -4,7 +4,7 @@ A Targem Games 3-Day GameJam 2025 Entry indie game/homebrew made for the Nintend
 This game and all of its content including code, builds, art, models and assets are NOT for commercial use. The sources for assets (CC0 and Public Domain) are listed in the game's credits.
 
 Building the game requires the libdragon SDK + texparms PR + RDP optimizations PR
-Also you need Tiny3D with no_light branch or later.
+Also you need Tiny3D installed.
 
 Music credits:
 - Spring in Puck City
