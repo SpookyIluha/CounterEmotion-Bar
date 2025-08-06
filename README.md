@@ -1,6 +1,8 @@
 # CounterEmotion Bar
 A Targem Games 3-Day GameJam 2025 Entry indie game/homebrew made for the Nintendo 64.
 
+It scored a 4-th place with 17 points out of 22 at 1-st place
+
 This game and all of its content including code, builds, art, models and assets are NOT for commercial use. The sources for assets (CC0 and Public Domain) are listed in the game's credits.
 
 Building the game requires the libdragon SDK + texparms PR + RDP optimizations PR
